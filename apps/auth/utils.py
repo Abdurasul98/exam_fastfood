@@ -16,7 +16,7 @@ class AuthValidation:
         if password1 != password2:
             print("Passwords do not match!")
             return False
-        if len(password1) < 6:
+        if len(password1) <= 4:
             print("Password should be at least 6 characters!")
             return False
         return True

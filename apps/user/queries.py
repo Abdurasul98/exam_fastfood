@@ -1,0 +1,2 @@
+class UserQueries:
+    pass

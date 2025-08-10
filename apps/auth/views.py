@@ -8,14 +8,13 @@ from core.config import EMAIL_USER, EMAIL_PASS
 
 
 class RegisterView(AuthValidation, AuthQueries):
-    def verify_code(self):
-        email = input("Enter your email: ")
+    def verify_code(self,email):
         code = input("Enter your verification code: ")
 
         verification_code = self.get_verification_code(email, code)
         if not verification_code:
             print("Invalid code")
-            return self.verify_code()
+            return self.verify_code(email)
         else:
             self.update_user_status(True, email)
             print("You can login now")
@@ -42,7 +41,7 @@ class RegisterView(AuthValidation, AuthQueries):
                 server.sendmail(EMAIL_USER, email, msg.as_string())
 
             print("Please check your email and enter the code")
-            return self.verify_code()
+            return self.verify_code(email)
         except Exception as e:
             print(f"Something went wrong!!: {e}")
             return None
@@ -71,12 +70,26 @@ class LoginView(AuthQueries):
     password_admin = "a"
     email_admin = "a"
 
+    password_fastfood = "f"
+    email_fastfood = "f"
+
+    password_courier = "c"
+    email_courier = "c"
+
     def login(self):
         email = input("Enter your email: ")
         password = input("Enter your password: ")
         if email == self.email_admin and password == self.password_admin:
             print("Welcome admin")
             return "admin"
+
+        if email == self.email_courier and password == self.password_courier:
+            print("Welcome Courier")
+            return "courier"
+
+        if email == self.email_fastfood and password == self.password_fastfood:
+            print("Welcome fastfood")
+            return "fastfood"
 
         user = self.get_user_by_email(email)
         if user and user['password'] == password and user['is_active']:
