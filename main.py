@@ -1,6 +1,7 @@
+from apps.admin.views import AdminViews
 from apps.auth.views import LoginView, RegisterView, LogoutView
 from core.utils import get_user_option, main_menu, user_menu, courier_menu, admin_menu, fastfood_brand, user_orders, \
-    Manage_fastfood_and_couriers
+    Manage_fastfood_and_couriers, execute_table
 
 
 class Menu:
@@ -45,7 +46,6 @@ class Menu:
         elif option == "2":
             LogoutView().logout_all()
 
-
         return self.user_menu()
 
     def admin_menu(self):
@@ -55,31 +55,32 @@ class Menu:
             if Manage_fastfood_and_couriers:
                 option = get_user_option(menu=Manage_fastfood_and_couriers,max_option=5)
                 if option == "1":
-                    pass
+                    AdminViews().add_brand()
 
                 elif option == "2":
-                    pass
+                    AdminViews().delete_brand()
 
                 elif option == "3":
-                    pass
+                    AdminViews().add_couriers()
 
                 elif option == "4":
-                    pass
+                    AdminViews().delete_couriers()
 
                 elif option == "5":
-                    pass
+                    return self.admin_menu()
 
         elif option == "2":
-            pass
+            AdminViews().show_user()
 
         elif option == "3":
-            pass
+            AdminViews().show_brands()
 
         elif option == '4':
-            pass
+            AdminViews().show_courier()
 
         elif option == "5":
-            pass
+            return self.main_menu()
+
 
         return self.admin_menu()
 
@@ -118,4 +119,5 @@ class Menu:
         return self.courier_menu()
 
 if __name__ == "__main__":
+    execute_table()
     Menu().main_menu()

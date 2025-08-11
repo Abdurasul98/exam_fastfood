@@ -15,9 +15,9 @@ DB_PASS = os.getenv("DB_PASS")
 DB_NAME = os.getenv("DB_NAME")
 
 DB_CONFIG = {
-    "database": DB_NAME,
+    "dbname": DB_NAME,
     "user": DB_USER,
-    "port": DB_PORT,
+    "password": DB_PASS,
     "host": DB_HOST,
-    "password": DB_PASS
+    "port": DB_PORT
 }
